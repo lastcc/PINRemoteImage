@@ -106,6 +106,7 @@
 		139D50C01F672C1C00DE64E0 /* PINRemoteImageManagerResult.h in Headers */ = {isa = PBXBuildFile; fileRef = F1B918F71BCF23C800710963 /* PINRemoteImageManagerResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		139D50C11F672C1C00DE64E0 /* PINURLSessionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = F1B918FD1BCF23C800710963 /* PINURLSessionManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		139D50C21F672C1C00DE64E0 /* PINRequestRetryStrategy.h in Headers */ = {isa = PBXBuildFile; fileRef = 926E015C1F0DFCAE00874D01 /* PINRequestRetryStrategy.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4235637C1FA62B030017F5EF /* PINCache.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6818C2B81E564FF900875DB7 /* PINCache.framework */; };
 		6818C1551E551B5A00875DB7 /* PINCache.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6818C1541E551B5A00875DB7 /* PINCache.framework */; };
 		6858C0751C9CC5BA00E420EB /* PINRemoteLock.h in Headers */ = {isa = PBXBuildFile; fileRef = 6858C0731C9CC5BA00E420EB /* PINRemoteLock.h */; };
 		6858C0761C9CC5BA00E420EB /* PINRemoteLock.m in Sources */ = {isa = PBXBuildFile; fileRef = 6858C0741C9CC5BA00E420EB /* PINRemoteLock.m */; };
@@ -386,6 +387,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4235637C1FA62B030017F5EF /* PINCache.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
