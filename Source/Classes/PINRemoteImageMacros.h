@@ -33,13 +33,6 @@
     #endif
 #endif
 
-#ifndef PIN_WEBP
-    #if __has_include("webp/decode.h")
-    #define PIN_WEBP    1
-    #else
-    #define PIN_WEBP    0
-    #endif
-#endif
 
 #if PIN_TARGET_IOS
 #define PINImage     UIImage
