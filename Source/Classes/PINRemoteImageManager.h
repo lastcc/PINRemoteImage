@@ -548,7 +548,11 @@ typedef void(^PINRemoteImageManagerProgressDownload)(int64_t completedBytes, int
  
  @return A PINRemoteImageManagerResult
  */
+
 - (nonnull PINRemoteImageManagerResult *)synchronousImageFromCacheWithURL:(nonnull NSURL *)url processorKey:(nullable NSString *)processorKey options:(PINRemoteImageManagerDownloadOptions)options;
+
+/* Synchronously cache a decoded image to memory cache and disk cache */
+- (BOOL)synchronousCacheDecodedImage:(nonnull UIImage *)image imageData:(nullable NSData *)data url:(nonnull NSURL *)url processorKey:(nullable NSString *)processorKey;
 
 /**
  Cancel a download. Canceling will only cancel the download if all other downloads are also canceled with their associated UUIDs. 

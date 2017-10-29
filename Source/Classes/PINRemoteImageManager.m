@@ -770,17 +770,12 @@ static dispatch_once_t sharedDispatchToken;
             NSError *remoteImageError = error;
             PINImage *image = nil;
             id alternativeRepresentation = nil;
-             
-            if (remoteImageError == nil) {
-                 //stores the object in the caches
-                 [self materializeAndCacheObject:data cacheInDisk:data additionalCost:0 url:url key:key options:options outImage:&image outAltRep:&alternativeRepresentation];
-             }
 
-             if (error == nil && image == nil && alternativeRepresentation == nil) {
-                 remoteImageError = [NSError errorWithDomain:PINRemoteImageManagerErrorDomain
-                                                        code:PINRemoteImageManagerErrorFailedToDecodeImage
-                                                    userInfo:nil];
-             }
+            if (error == nil && image == nil && alternativeRepresentation == nil) {
+                remoteImageError = [NSError errorWithDomain:PINRemoteImageManagerErrorDomain
+                                                       code:PINRemoteImageManagerErrorFailedToDecodeImage
+                                                   userInfo:nil];
+            }
 
             [self callCompletionsWithKey:key image:image alternativeRepresentation:alternativeRepresentation cached:NO response:response error:remoteImageError finalized:YES];
          } withPriority:operationPriorityWithImageManagerPriority(priority)];
@@ -1243,6 +1238,26 @@ static dispatch_once_t sharedDispatchToken;
                         outAltRep:(id *)outAlternateRepresentation
 {
     return [self materializeAndCacheObject:object cacheInDisk:nil additionalCost:0 url:url key:key options:options outImage:outImage outAltRep:outAlternateRepresentation];
+}
+
+- (BOOL)synchronousCacheDecodedImage:(nonnull UIImage *)image imageData:(nullable NSData *)data url:(nonnull NSURL *)url processorKey:(nullable NSString *)processorKey; {
+    
+    // return early if criteria is not met
+    CGImageRef cgImage = image.CGImage;
+    if (cgImage == nil) { return NO; };
+    
+    NSString *cacheKey = [self cacheKeyForURL:url processorKey:processorKey];
+    
+    // compressed data, that is meant to be written to disk
+    NSData *dataToCache = data ?: PINImageJPEGRepresentation(image, 1.0);
+    [self.cache setObjectOnDisk:dataToCache forKey:cacheKey];
+    
+    PINRemoteImageMemoryContainer *container = [[PINRemoteImageMemoryContainer alloc] init];
+    container.image = image;
+    NSUInteger cost = dataToCache.length + CGImageGetHeight(cgImage) * CGImageGetBytesPerRow(cgImage);
+    [self.cache setObjectInMemory:container forKey:cacheKey withCost:cost];
+    
+    return YES;
 }
 
 //takes the object from the cache and returns an image or animated image.
