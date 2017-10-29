@@ -7,9 +7,7 @@
 
 #import "PINRemoteImageMacros.h"
 
-#if USE_PINCACHE
-  #import "PINCache+PINRemoteImageCaching.h"
-#endif
+#import "PINCache+PINRemoteImageCaching.h"
 
 #import "NSData+ImageDetectors.h"
 #import "PINAlternateRepresentationProvider.h"

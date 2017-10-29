@@ -32,11 +32,8 @@
 #import "PINImage+DecodedImage.h"
 #import "PINImage+ScaledImage.h"
 
-#if USE_PINCACHE
+
 #import "PINCache+PINRemoteImageCaching.h"
-#else
-#import "PINRemoteImageBasicCache.h"
-#endif
 
 
 #define PINRemoteImageManagerDefaultTimeout            30.0
@@ -218,7 +215,6 @@ static dispatch_once_t sharedDispatchToken;
 
 - (id<PINRemoteImageCaching>)defaultImageCache
 {
-#if USE_PINCACHE
     NSString * const kPINRemoteImageDiskCacheName = @"PINRemoteImageManagerCache";
     NSString * const kPINRemoteImageDiskCacheVersionKey = @"kPINRemoteImageDiskCacheVersionKey";
     const NSInteger kPINRemoteImageDiskCacheVersion = 1;
@@ -250,9 +246,6 @@ static dispatch_once_t sharedDispatchToken;
         }
         return data;
     }];
-#else
-    return [[PINRemoteImageBasicCache alloc] init];
-#endif
 }
 
 - (void)lockOnMainThread
